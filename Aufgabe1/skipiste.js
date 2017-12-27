@@ -10,4 +10,4 @@ document.addEventListener('DOMContentLoaded', function () {
     var box = prompt("Bitte gebe hier deinen Namen ein");
     document.body.innerHTML = text + " " + box + "!" + " " + begruessung;
 });
-//# sourceMappingURL=aufgabe1.js.map
+//# sourceMappingURL=skipiste.js.map
