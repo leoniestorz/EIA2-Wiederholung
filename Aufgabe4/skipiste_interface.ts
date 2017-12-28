@@ -1,9 +1,20 @@
-namespace A3 {
+namespace A4 {
+    
+    interface SkiInfo {
+        
+        x:number;
+        y:number;
+        dx:number;
+        dy:number;
+        color:string; }
     
     window.addEventListener("load", init);
     
     let crc2: CanvasRenderingContext2D;
     let canvas: HTMLCanvasElement;
+    
+    let skifahrer:SkiInfo[] = [];
+    
     
     let snowX: number[] = [];
     let snowY: number[] = [];
@@ -17,9 +28,10 @@ namespace A3 {
     let gondelX: number[] = [];
     let gondelY:number[] = [];
     
-   
     
     let imageData:ImageData;
+    
+    
     
     
     function init(_event: Event): void {
@@ -33,21 +45,16 @@ namespace A3 {
         
 //Himmel
     
-        var grd = crc2.createLinearGradient(0, 0, 0, 300);
-        grd.addColorStop(0, "#9999ff");
-        grd.addColorStop(0.5, "#9966ff");
-        grd.addColorStop(1, "#cc99ff");
-        crc2.fillStyle = grd;
-        crc2.fillRect(0, 0, 800, 600);
-//        crc2.fillStyle = "#00ffff";
-//    crc2.fillRect(0, 0, 800, 700);
-        
-//    drawCloud(200,100);
-//      drawSki(200,400);
-// drawGondel(200,600);
+     var grd = crc2.createLinearGradient(0, 0, 0, 300);
+     grd.addColorStop(0, "#9999ff");
+     grd.addColorStop(0.5, "#9966ff");
+     grd.addColorStop(1, "#cc99ff");
+     crc2.fillStyle = grd;
+     crc2.fillRect(0, 0, 800, 600);
         
         
-// Pisten vorne   
+// Pisten vorne 
+          
     crc2.beginPath();
     crc2.strokeStyle = "lightgrey";
     crc2.arc(300, 1750, 1350, 0, 2 * Math.PI);
@@ -62,7 +69,9 @@ namespace A3 {
     crc2.fillStyle = "white";
     crc2.fill();
 
- drawLift(200,600);
+//Lift
+   
+    drawLift(200,600);
 
         
         
@@ -73,7 +82,7 @@ namespace A3 {
         drawTriangle(400, 420, "green");
         drawTriangle(680, 490, "green");
         
-// 10 Baeume an zufälliger Position zwischen 10 und 710 horizontal und 400 und 500 vertikal
+// 10 Baeume an zufälliger Position zwischen 10 und 710 horizontal und 400 und 500 vertikal zufälliger Farbe
         
     for (let i: number = 0; i < 10; i++) {
             let x: number = 10 + Math.random() * 700;
@@ -103,9 +112,22 @@ namespace A3 {
         
 //Startposition der animierten Skifahrer
         
-        for (let i: number = 0; i < 4; i++) {
-            skiX[i] = 500 + Math.random() * 100;
-            skiY[i] = 500 + Math.random() * 200;} 
+   for (let i: number = 0; i < 2; i++) {
+        
+       skifahrer[i] = {
+            
+        x: 500 + Math.random() * 100,
+        y: 500 + Math.random() * 200,
+        dx: Math.random() * 0.5 - 3,
+        dy: Math.random() * 0.5 + 1,
+        color: "hsl(" + Math.random() * 360 +", 50%, 50%)"
+       
+     };}
+      
+//        for (let i: number = 0; i < 4; i++) {
+//            skiX[i] = 500 + Math.random() * 100;
+//            skiY[i] = 500 + Math.random() * 200;} 
+  
         
 //Startposition der animierten Gondel
         
@@ -122,8 +144,11 @@ namespace A3 {
 
     }
 
-     function animate(): void {
+    
+   function animate(): void {
+       
       console.log("Timeout");
+    
       crc2.putImageData(imageData,0,0);
       
       //SCHNEEFLOCKEN
@@ -140,9 +165,6 @@ namespace A3 {
            
              if (snowX[i] > canvas.width) {
                  snowX[i] = 0; }
-            
-            if (snowY[i] < 0) {
-                snowY[i] = canvas.height; }
              
              if (snowY[i] > canvas.height) { 
                  snowY[i] = 0; }
@@ -164,17 +186,7 @@ namespace A3 {
              if (gondelX[i] < - 20) {
                  gondelX[i] = 200;
                  gondelY[i] = 600; }
-           
-//             if (gondelX[i] > canvas.width) {
-//                 gondelX[i] = 0; }
-            
-//            if (cloudY[i] < 0) {
-//                cloudY[i] = canvas.height; }
-//             
-//             if (cloudY[i] > canvas.height) { 
-//                 cloudY[i] = 0; }
-            
-            
+
             drawGondel(gondelX[i], gondelY[i]);
                  
         }
@@ -187,42 +199,32 @@ namespace A3 {
             cloudY[i] += Math.random() * 0;
  
         //Erscheinen der Wolken am gegenueberliegenden Rand nach Verlassen des Canvas
-            
-             if (cloudX[i] < 0) {
-                 cloudX[i] = canvas.width; }
            
-             if (cloudX[i] > canvas.width) {
-                 cloudX[i] = 0; }
+               if (cloudX[i] > canvas.width) {
+                   cloudX[i] = 0; }
             
-//            if (cloudY[i] < 0) {
-//                cloudY[i] = canvas.height; }
-//             
-//             if (cloudY[i] > canvas.height) { 
-//                 cloudY[i] = 0; }
-            
-            
-            drawCloud(cloudX[i], cloudY[i]);
+                drawCloud(cloudX[i], cloudY[i]);
                  
         }
 
       //Skifahrer         
         //Fahrtrichtung - und geschwindigkeit der Skifahrer
          
-        for (let i: number = 0; i < skiX.length; i++) {
-            skiX[i] += Math.random() * 0.5 - 3;
-            skiY[i] += Math.random() * 0.5 + 1;
- 
+        for (let i: number = 0; i < skifahrer.length; i++) {
+            
+             skifahrer[i].x += skifahrer[i].dx;                  // Neue Parameter aus dem Interface 
+             skifahrer[i].y += skifahrer[i].dy;
+//            skifahrer[i].x += Math.random() * 0.5 - 3;
+//            skifahrer[i].y += Math.random() * 0.5 + 1;
+// 
         //Erscheinen der SKifahrer auf dem Canvas nachdem sie ihn verlassen haben
            
            
-             if (skiY[i] >= 650) {
-                 skiY[i] = 500;
-                 skiX[i] = 700; }
-            
+             if (skifahrer[i].y >= 650) {
+                 skifahrer[i].y = 500;
+                 skifahrer[i].x = 700; }
 
-            
-            
-            drawSki(skiX[i], skiY[i]);
+            drawSki(skifahrer[i]);
                  
         }
         
@@ -273,13 +275,13 @@ namespace A3 {
         
        }
     
-      function drawSki(_x: number, _y: number): void {
+      function drawSki(_skifahrer:SkiInfo): void {
         
          
         crc2.beginPath();
         crc2.strokeStyle = "black";
-        crc2.fillStyle = "black";
-        crc2.arc(_x + 80 ,_y - 30, 6, 0, 2 * Math.PI);
+        crc2.fillStyle = _skifahrer.color;
+        crc2.arc(_skifahrer.x + 80 ,_skifahrer.y - 30, 6, 0, 2 * Math.PI);
         crc2.stroke();
         crc2.fill();
         
