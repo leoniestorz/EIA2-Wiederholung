@@ -9,6 +9,8 @@ var A3;
     var cloudY = [];
     var skiX = [];
     var skiY = [];
+    var gondelX = [];
+    var gondelY = [];
     var imageData;
     function init(_event) {
         canvas = document.getElementsByTagName("canvas")[0];
@@ -16,10 +18,17 @@ var A3;
         crc2 = canvas.getContext("2d");
         console.log(crc2);
         //Himmel
-        crc2.fillStyle = "#00ffff";
-        crc2.fillRect(0, 0, 800, 700);
+        var grd = crc2.createLinearGradient(0, 0, 0, 300);
+        grd.addColorStop(0, "#9999ff");
+        grd.addColorStop(0.5, "#9966ff");
+        grd.addColorStop(1, "#cc99ff");
+        crc2.fillStyle = grd;
+        crc2.fillRect(0, 0, 800, 600);
+        //        crc2.fillStyle = "#00ffff";
+        //    crc2.fillRect(0, 0, 800, 700);
         //    drawCloud(200,100);
         //      drawSki(200,400);
+        // drawGondel(200,600);
         // Pisten vorne   
         crc2.beginPath();
         crc2.strokeStyle = "lightgrey";
@@ -33,6 +42,7 @@ var A3;
         crc2.stroke();
         crc2.fillStyle = "white";
         crc2.fill();
+        drawLift(200, 600);
         //Fest platzierte Baeume   
         drawTriangle(170, 510, "green");
         drawTriangle(260, 450, "green");
@@ -59,10 +69,15 @@ var A3;
             cloudX[i] = Math.random() * 800;
             cloudY[i] = Math.random() * 350;
         }
-        //Zufaellige Startpositionen der animierten SKifahrer
-        for (var i = 0; i < 2; i++) {
-            skiX[i] = Math.random() * 800;
-            skiY[i] = Math.random() * 600 - 200;
+        //Startposition der animierten Skifahrer
+        for (var i = 0; i < 4; i++) {
+            skiX[i] = 500 + Math.random() * 100;
+            skiY[i] = 500 + Math.random() * 200;
+        }
+        //Startposition der animierten Gondel
+        for (var i = 0; i < 1; i++) {
+            gondelX[i] = 200;
+            gondelY[i] = 600;
         }
         imageData = crc2.getImageData(0, 0, canvas.width, canvas.height);
         animate();
@@ -90,6 +105,25 @@ var A3;
             }
             drawSnowflake(snowX[i], snowY[i]);
         }
+        //GONDEL       
+        //Flugrichtung - und geschwindigkeit der Gondel
+        for (var i = 0; i < 2; i++) {
+            gondelX[i] -= Math.random() * 0.25 + 0.8;
+            gondelY[i] -= Math.random() * 1.25;
+            //Erscheinen der Gondel am gegenueberliegenden Rand nach Verlassen des Canvas
+            if (gondelX[i] < -20) {
+                gondelX[i] = 200;
+                gondelY[i] = 600;
+            }
+            //             if (gondelX[i] > canvas.width) {
+            //                 gondelX[i] = 0; }
+            //            if (cloudY[i] < 0) {
+            //                cloudY[i] = canvas.height; }
+            //             
+            //             if (cloudY[i] > canvas.height) { 
+            //                 cloudY[i] = 0; }
+            drawGondel(gondelX[i], gondelY[i]);
+        }
         //WOLKEN         
         //Flugrichtung - und geschwindigkeit der Wolken
         for (var i = 0; i < 2; i++) {
@@ -110,22 +144,14 @@ var A3;
             drawCloud(cloudX[i], cloudY[i]);
         }
         //Skifahrer         
-        //Flugrichtung - und geschwindigkeit der Skifahrer
-        for (var i = 0; i < 2; i++) {
+        //Fahrtrichtung - und geschwindigkeit der Skifahrer
+        for (var i = 0; i < skiX.length; i++) {
             skiX[i] += Math.random() * 0.5 - 3;
             skiY[i] += Math.random() * 0.5 + 1;
-            //Erscheinen der SKifahrer am gegenueberliegenden Rand nach Verlassen des Canvas
-            if (skiX[i] < 0) {
-                skiX[i] = canvas.width;
-            }
-            if (skiX[i] > canvas.width) {
-                skiX[i] = 0;
-            }
-            if (skiY[i] < 0) {
-                skiY[i] = canvas.height;
-            }
-            if (skiY[i] > canvas.height) {
-                skiY[i] = 0;
+            //Erscheinen der SKifahrer auf dem Canvas nachdem sie ihn verlassen haben
+            if (skiY[i] >= 650) {
+                skiY[i] = 500;
+                skiX[i] = 700;
             }
             drawSki(skiX[i], skiY[i]);
         }
@@ -162,11 +188,26 @@ var A3;
     function drawSki(_x, _y) {
         crc2.beginPath();
         crc2.strokeStyle = "black";
-        crc2.fillStyle = "white";
-        crc2.lineTo(_x - 40, _y + 100);
-        crc2.arc(_x + 80, _y - 30, 10, 0, 2 * Math.PI);
+        crc2.fillStyle = "black";
+        crc2.arc(_x + 80, _y - 30, 6, 0, 2 * Math.PI);
         crc2.stroke();
         crc2.fill();
+    }
+    function drawGondel(_x, _y) {
+        crc2.beginPath();
+        crc2.strokeStyle = "black";
+        crc2.fillStyle = "black";
+        crc2.fillRect(_x, _y, 25, 25);
+        crc2.stroke();
+        crc2.fill();
+    }
+    function drawLift(_x, _y) {
+        crc2.beginPath();
+        crc2.strokeStyle = "black";
+        crc2.fillStyle = "black";
+        crc2.moveTo(_x + 0, _y + 0);
+        crc2.lineTo(_x - 200, _y - 130);
+        crc2.stroke();
     }
 })(A3 || (A3 = {}));
 //# sourceMappingURL=skipiste_animation.js.map
