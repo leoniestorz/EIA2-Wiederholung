@@ -1,11 +1,13 @@
-namespace L05_Class {
+namespace A5 {
     
     
     
-    export class Square {
+    export class Skifahrer {
+       
         x: number;
         y: number;
-        size: number;
+        positionX:number;
+        positionY:number;
         color: string;
 
         constructor(_x: number, _y: number) {
@@ -21,17 +23,32 @@ namespace L05_Class {
         }
 
         move(): void {
-            this.x += Math.random() * 4 - 2; 
-            this.y += Math.random() * 4 - 2; 
+            this.x += Math.random() * 0.5 - 3;
+            this.y += Math.random() * 0.5 + 1; 
+            
+            if (this.y >= 650) {
+                 this.y = 500;
+                 this.x = 700; }
         }
 
         draw(): void {
+             
+            crc2.beginPath();
+            crc2.strokeStyle = "black";
             crc2.fillStyle = this.color;
-            crc2.fillRect(this.x, this.y, this.size, this.size);
+            crc2.arc(this.x + 80 ,this.y - 30, 6, 0, 2 * Math.PI);
+            crc2.stroke();
+            crc2.fill();
+        
+       
         }
+        
+        setPosition(): void {
+            this.positionX = 500 + Math.random() * 100;
+            this.positionY = 500 + Math.random() * 200;
+            }
 
         setRandomStyle(): void {
-            this.size = Math.random() * 30 + 10;
             this.color = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
         }
     }

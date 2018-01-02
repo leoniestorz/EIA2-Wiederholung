@@ -1,43 +1,43 @@
-var A4;
-(function (A4) {
-    window.addEventListener("load", init);
-    var crc2;
+var A5;
+(function (A5) {
     var canvas;
-    var skifahrer = [];
+    var imageData;
+    window.addEventListener("load", init);
     var snowX = [];
     var snowY = [];
     var cloudX = [];
     var cloudY = [];
-    var skiX = [];
-    var skiY = [];
+    //    let skiX: number[] = [];
+    //    let skiY:number[] = [];
+    var einSkifahrer;
+    var alleSkifahrer = [];
     var gondelX = [];
     var gondelY = [];
-    var imageData;
     function init(_event) {
         canvas = document.getElementsByTagName("canvas")[0];
         console.log(canvas);
-        crc2 = canvas.getContext("2d");
-        console.log(crc2);
+        A5.crc2 = canvas.getContext("2d");
+        console.log(A5.crc2);
         //Himmel
-        var grd = crc2.createLinearGradient(0, 0, 0, 300);
+        var grd = A5.crc2.createLinearGradient(0, 0, 0, 300);
         grd.addColorStop(0, "#9999ff");
         grd.addColorStop(0.5, "#9966ff");
         grd.addColorStop(1, "#cc99ff");
-        crc2.fillStyle = grd;
-        crc2.fillRect(0, 0, 800, 600);
+        A5.crc2.fillStyle = grd;
+        A5.crc2.fillRect(0, 0, 800, 600);
         // Pisten vorne 
-        crc2.beginPath();
-        crc2.strokeStyle = "lightgrey";
-        crc2.arc(300, 1750, 1350, 0, 2 * Math.PI);
-        crc2.stroke();
-        crc2.fillStyle = "white";
-        crc2.fill();
-        crc2.beginPath();
-        crc2.strokeStyle = "lightgrey";
-        crc2.arc(900, 1600, 1200, 0, 2 * Math.PI);
-        crc2.stroke();
-        crc2.fillStyle = "white";
-        crc2.fill();
+        A5.crc2.beginPath();
+        A5.crc2.strokeStyle = "lightgrey";
+        A5.crc2.arc(300, 1750, 1350, 0, 2 * Math.PI);
+        A5.crc2.stroke();
+        A5.crc2.fillStyle = "white";
+        A5.crc2.fill();
+        A5.crc2.beginPath();
+        A5.crc2.strokeStyle = "lightgrey";
+        A5.crc2.arc(900, 1600, 1200, 0, 2 * Math.PI);
+        A5.crc2.stroke();
+        A5.crc2.fillStyle = "white";
+        A5.crc2.fill();
         //Lift
         drawLift(200, 600);
         //Fest platzierte Baeume   
@@ -67,29 +67,23 @@ var A4;
             cloudY[i] = Math.random() * 350;
         }
         //Startposition der animierten Skifahrer
-        for (var i = 0; i < 2; i++) {
-            skifahrer[i] = {
-                x: 500 + Math.random() * 100,
-                y: 500 + Math.random() * 200,
-                dx: Math.random() * 0.5 - 3,
-                dy: Math.random() * 0.5 + 1,
-                color: "hsl(" + Math.random() * 360 + ", 50%, 50%)"
-            };
+        var ski = new A5.Skifahrer(500, 300);
+        for (var i = 0; i < 1; i++) {
+            var s = new A5.Skifahrer(400, 400);
+            s.setRandomStyle();
+            alleSkifahrer[i] = s;
         }
-        //        for (let i: number = 0; i < 4; i++) {
-        //            skiX[i] = 500 + Math.random() * 100;
-        //            skiY[i] = 500 + Math.random() * 200;} 
         //Startposition der animierten Gondel
         for (var i = 0; i < 1; i++) {
             gondelX[i] = 200;
             gondelY[i] = 600;
         }
-        imageData = crc2.getImageData(0, 0, canvas.width, canvas.height);
+        imageData = A5.crc2.getImageData(0, 0, canvas.width, canvas.height);
         animate();
     }
     function animate() {
         console.log("Timeout");
-        crc2.putImageData(imageData, 0, 0);
+        A5.crc2.putImageData(imageData, 0, 0);
         //SCHNEEFLOCKEN
         //Flugrichtung - und geschwindigkeit der Schneeflocken
         for (var i = 0; i < 100; i++) {
@@ -97,12 +91,12 @@ var A4;
             snowY[i] += Math.random() * 1 + 0.5;
             //Erscheinen der Schneeflocken am gegenueberliegenden Rand nach Verlassen des Canvas
             if (snowX[i] < 0) {
-                snowX[i] = canvas.width;
+                snowX[i] = 800;
             }
-            if (snowX[i] > canvas.width) {
+            if (snowX[i] > 800) {
                 snowX[i] = 0;
             }
-            if (snowY[i] > canvas.height) {
+            if (snowY[i] > 600) {
                 snowY[i] = 0;
             }
             drawSnowflake(snowX[i], snowY[i]);
@@ -125,79 +119,62 @@ var A4;
             cloudX[i] += Math.random() * 1 + 0.5;
             cloudY[i] += Math.random() * 0;
             //Erscheinen der Wolken am gegenueberliegenden Rand nach Verlassen des Canvas
-            if (cloudX[i] > canvas.width) {
+            if (cloudX[i] > 800) {
                 cloudX[i] = 0;
             }
             drawCloud(cloudX[i], cloudY[i]);
         }
-        //Skifahrer         
-        //Fahrtrichtung - und geschwindigkeit der Skifahrer
-        for (var i = 0; i < skifahrer.length; i++) {
-            skifahrer[i].x += skifahrer[i].dx; // Neue Parameter aus dem Interface 
-            skifahrer[i].y += skifahrer[i].dy;
-            //            skifahrer[i].x += Math.random() * 0.5 - 3;
-            //            skifahrer[i].y += Math.random() * 0.5 + 1;
-            // 
-            //Erscheinen der SKifahrer auf dem Canvas nachdem sie ihn verlassen haben
-            if (skifahrer[i].y >= 650) {
-                skifahrer[i].y = 500;
-                skifahrer[i].x = 700;
-            }
-            drawSki(skifahrer[i]);
+        //SKIFAHRER  
+        //       einSkifahrer.update();   
+        for (var i = 0; i < alleSkifahrer.length; i++) {
+            var s = alleSkifahrer[i];
+            alleSkifahrer[i].update();
         }
         window.setTimeout(animate, 20);
     }
     //--------------------------------Funktionen ----------------------------- 
     function drawTriangle(_x, _y, _color) {
-        crc2.beginPath();
-        crc2.moveTo(_x, _y);
-        crc2.lineTo(_x + 20, _y + 30);
-        crc2.lineTo(_x - 20, _y + 30);
-        crc2.closePath();
-        crc2.stroke();
-        crc2.fillStyle = _color;
-        crc2.fill();
+        A5.crc2.beginPath();
+        A5.crc2.moveTo(_x, _y);
+        A5.crc2.lineTo(_x + 20, _y + 30);
+        A5.crc2.lineTo(_x - 20, _y + 30);
+        A5.crc2.closePath();
+        A5.crc2.stroke();
+        A5.crc2.fillStyle = _color;
+        A5.crc2.fill();
     }
     function drawSnowflake(_x, _y) {
-        crc2.beginPath();
-        crc2.strokeStyle = "lightgrey";
-        crc2.fillStyle = "white";
-        crc2.arc(_x - 8, _y - 3, 4, 0, 2 * Math.PI);
-        crc2.stroke();
-        crc2.fill();
+        A5.crc2.beginPath();
+        A5.crc2.strokeStyle = "lightgrey";
+        A5.crc2.fillStyle = "white";
+        A5.crc2.arc(_x - 8, _y - 3, 4, 0, 2 * Math.PI);
+        A5.crc2.stroke();
+        A5.crc2.fill();
     }
     function drawCloud(_x, _y) {
-        crc2.beginPath();
-        crc2.strokeStyle = "lightgrey";
-        crc2.fillStyle = "white";
-        crc2.arc(_x + 80, _y - 30, 60, 0, 2 * Math.PI);
-        crc2.arc(_x + 10, _y - 30, 50, 0, 2 * Math.PI);
-        crc2.stroke();
-        crc2.fill();
-    }
-    function drawSki(_skifahrer) {
-        crc2.beginPath();
-        crc2.strokeStyle = "black";
-        crc2.fillStyle = _skifahrer.color;
-        crc2.arc(_skifahrer.x + 80, _skifahrer.y - 30, 6, 0, 2 * Math.PI);
-        crc2.stroke();
-        crc2.fill();
+        A5.crc2.beginPath();
+        A5.crc2.strokeStyle = "lightgrey";
+        A5.crc2.fillStyle = "white";
+        A5.crc2.arc(_x + 80, _y - 30, 60, 0, 2 * Math.PI);
+        A5.crc2.arc(_x + 10, _y - 30, 50, 0, 2 * Math.PI);
+        A5.crc2.stroke();
+        A5.crc2.fill();
     }
     function drawGondel(_x, _y) {
-        crc2.beginPath();
-        crc2.strokeStyle = "black";
-        crc2.fillStyle = "black";
-        crc2.fillRect(_x, _y, 25, 25);
-        crc2.stroke();
-        crc2.fill();
+        A5.crc2.beginPath();
+        A5.crc2.strokeStyle = "black";
+        A5.crc2.fillStyle = "black";
+        A5.crc2.fillRect(_x, _y, 25, 25);
+        A5.crc2.stroke();
+        A5.crc2.fill();
     }
     function drawLift(_x, _y) {
-        crc2.beginPath();
-        crc2.strokeStyle = "black";
-        crc2.fillStyle = "black";
-        crc2.moveTo(_x + 0, _y + 0);
-        crc2.lineTo(_x - 200, _y - 130);
-        crc2.stroke();
+        A5.crc2.beginPath();
+        A5.crc2.strokeStyle = "black";
+        A5.crc2.fillStyle = "black";
+        A5.crc2.moveTo(_x + 0, _y + 0);
+        A5.crc2.lineTo(_x - 200, _y - 130);
+        A5.crc2.stroke();
     }
-})(A4 || (A4 = {}));
+})(A5 || (A5 = {}));
 //# sourceMappingURL=skipiste_classes.js.map

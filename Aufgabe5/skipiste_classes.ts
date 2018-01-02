@@ -1,20 +1,11 @@
-namespace A4 {
+namespace A5 {
     
-    interface SkiInfo {
-        
-        x:number;
-        y:number;
-        dx:number;
-        dy:number;
-        color:string; }
+    export let crc2: CanvasRenderingContext2D;
+    let canvas: HTMLCanvasElement;
+    let imageData:ImageData;
+    
     
     window.addEventListener("load", init);
-    
-    let crc2: CanvasRenderingContext2D;
-    let canvas: HTMLCanvasElement;
-    
-    let skifahrer:SkiInfo[] = [];
-    
     
     let snowX: number[] = [];
     let snowY: number[] = [];
@@ -22,25 +13,28 @@ namespace A4 {
     let cloudX: number[] = [];
     let cloudY:number[] = [];
     
-    let skiX: number[] = [];
-    let skiY:number[] = [];
+//    let skiX: number[] = [];
+//    let skiY:number[] = [];
+    
+    let einSkifahrer: Skifahrer;
+    let alleSkifahrer:Skifahrer[] = [];
     
     let gondelX: number[] = [];
     let gondelY:number[] = [];
     
     
-    let imageData:ImageData;
+
     
     
     
     
     function init(_event: Event): void {
-    
+      
      canvas = document.getElementsByTagName("canvas")[0];
-     console.log(canvas);
+    console.log(canvas);   
         
-     crc2 = canvas.getContext("2d");
-     console.log(crc2);
+    crc2 = canvas.getContext("2d");
+    console.log(crc2);
  
         
 //Himmel
@@ -107,27 +101,25 @@ namespace A4 {
     for (let i: number = 0; i < 2; i++) {
             cloudX[i] = Math.random() * 800;
             cloudY[i] = Math.random() * 350 ;}
-
-
         
 //Startposition der animierten Skifahrer
         
-   for (let i: number = 0; i < 2; i++) {
-        
-       skifahrer[i] = {
-            
-        x: 500 + Math.random() * 100,
-        y: 500 + Math.random() * 200,
-        dx: Math.random() * 0.5 - 3,
-        dy: Math.random() * 0.5 + 1,
-        color: "hsl(" + Math.random() * 360 +", 50%, 50%)"
-       
-     };}
-      
-//        for (let i: number = 0; i < 4; i++) {
-//            skiX[i] = 500 + Math.random() * 100;
-//            skiY[i] = 500 + Math.random() * 200;} 
+    let ski:Skifahrer = new Skifahrer (500,300);
   
+
+        
+        for (let i: number = 0; i < 1; i++) {
+
+                    let s: Skifahrer = new Skifahrer(400, 400); 
+
+                    s.setRandomStyle();
+
+                    alleSkifahrer[i] = s; }
+
+        
+
+        
+
         
 //Startposition der animierten Gondel
         
@@ -161,12 +153,12 @@ namespace A4 {
         //Erscheinen der Schneeflocken am gegenueberliegenden Rand nach Verlassen des Canvas
             
              if (snowX[i] < 0) {
-                 snowX[i] = canvas.width; }
+                 snowX[i] = 800; }
            
-             if (snowX[i] > canvas.width) {
+             if (snowX[i] > 800) {
                  snowX[i] = 0; }
              
-             if (snowY[i] > canvas.height) { 
+             if (snowY[i] > 600) { 
                  snowY[i] = 0; }
             
             
@@ -200,38 +192,25 @@ namespace A4 {
  
         //Erscheinen der Wolken am gegenueberliegenden Rand nach Verlassen des Canvas
            
-               if (cloudX[i] > canvas.width) {
+               if (cloudX[i] > 800) {
                    cloudX[i] = 0; }
             
                 drawCloud(cloudX[i], cloudY[i]);
                  
         }
 
-      //Skifahrer         
-        //Fahrtrichtung - und geschwindigkeit der Skifahrer
-         
-        for (let i: number = 0; i < skifahrer.length; i++) {
-            
-             skifahrer[i].x += skifahrer[i].dx;                  // Neue Parameter aus dem Interface 
-             skifahrer[i].y += skifahrer[i].dy;
-//            skifahrer[i].x += Math.random() * 0.5 - 3;
-//            skifahrer[i].y += Math.random() * 0.5 + 1;
-// 
-        //Erscheinen der SKifahrer auf dem Canvas nachdem sie ihn verlassen haben
-           
-           
-             if (skifahrer[i].y >= 650) {
-                 skifahrer[i].y = 500;
-                 skifahrer[i].x = 700; }
 
-            drawSki(skifahrer[i]);
-                 
-        }
-        
-         
+       
+      //SKIFAHRER  
+       
+//       einSkifahrer.update();   
             
-        
-        window.setTimeout(animate, 20);
+                for (let i: number = 0; i < alleSkifahrer.length; i++) {
+                  
+                    let s: Skifahrer = alleSkifahrer[i];
+                    alleSkifahrer[i].update(); }
+
+                    window.setTimeout(animate, 20);
     }
  
     
@@ -275,17 +254,7 @@ namespace A4 {
         
        }
     
-      function drawSki(_skifahrer:SkiInfo): void {
-        
-         
-        crc2.beginPath();
-        crc2.strokeStyle = "black";
-        crc2.fillStyle = _skifahrer.color;
-        crc2.arc(_skifahrer.x + 80 ,_skifahrer.y - 30, 6, 0, 2 * Math.PI);
-        crc2.stroke();
-        crc2.fill();
-        
-       }
+
     
         function drawGondel(_x: number, _y: number): void {
         
