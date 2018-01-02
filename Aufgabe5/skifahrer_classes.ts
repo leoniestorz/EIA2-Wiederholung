@@ -13,9 +13,7 @@ namespace L05_Class {
             this.y = _y;
         }
 
-        sayHello(): void {
-            console.log("Hallo");
-        }
+
         
         update(): void {
             this.move();

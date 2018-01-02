@@ -5,9 +5,6 @@ var L05_Class;
             this.x = _x;
             this.y = _y;
         }
-        Square.prototype.sayHello = function () {
-            console.log("Hallo");
-        };
         Square.prototype.update = function () {
             this.move();
             this.draw();
@@ -28,4 +25,4 @@ var L05_Class;
     }());
     L05_Class.Square = Square;
 })(L05_Class || (L05_Class = {}));
-//# sourceMappingURL=Square.js.map
+//# sourceMappingURL=skifahrer_classes.js.map
