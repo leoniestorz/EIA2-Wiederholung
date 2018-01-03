@@ -1,23 +1,24 @@
 var A5;
 (function (A5) {
-    var Skifahrer = (function () {
-        function Skifahrer(_x, _y) {
-            this.x = _x;
-            this.y = _y;
+    var classSkifahrer = (function () {
+        function classSkifahrer(x, y, color) {
+            this.x = x;
+            this.y = y;
+            this.color = color;
         }
-        Skifahrer.prototype.update = function () {
+        classSkifahrer.prototype.update = function () {
             this.move();
             this.draw();
         };
-        Skifahrer.prototype.move = function () {
+        classSkifahrer.prototype.move = function () {
             this.x += Math.random() * 0.5 - 3;
-            this.y += Math.random() * 0.5 + 1;
+            this.y += Math.random() * 1 + 0.25;
             if (this.y >= 650) {
-                this.y = 500;
-                this.x = 700;
+                this.y = 480 + Math.random() * 100;
+                this.x = 650 + Math.random() * 100;
             }
         };
-        Skifahrer.prototype.draw = function () {
+        classSkifahrer.prototype.draw = function () {
             A5.crc2.beginPath();
             A5.crc2.strokeStyle = "black";
             A5.crc2.fillStyle = this.color;
@@ -25,15 +26,8 @@ var A5;
             A5.crc2.stroke();
             A5.crc2.fill();
         };
-        Skifahrer.prototype.setPosition = function () {
-            this.positionX = 500 + Math.random() * 100;
-            this.positionY = 500 + Math.random() * 200;
-        };
-        Skifahrer.prototype.setRandomStyle = function () {
-            this.color = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
-        };
-        return Skifahrer;
+        return classSkifahrer;
     }());
-    A5.Skifahrer = Skifahrer;
+    A5.classSkifahrer = classSkifahrer;
 })(A5 || (A5 = {}));
 //# sourceMappingURL=skifahrer_classes.js.map

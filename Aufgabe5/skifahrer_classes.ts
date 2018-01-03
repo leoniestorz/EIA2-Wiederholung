@@ -2,17 +2,16 @@ namespace A5 {
     
     
     
-    export class Skifahrer {
+    export class classSkifahrer {
        
         x: number;
         y: number;
-        positionX:number;
-        positionY:number;
-        color: string;
+        color:string;
 
-        constructor(_x: number, _y: number) {
-            this.x = _x;
-            this.y = _y;
+        constructor(x: number, y: number, color:string) {
+            this.x = x;
+            this.y = y;
+            this.color = color;
         }
 
 
@@ -24,11 +23,11 @@ namespace A5 {
 
         move(): void {
             this.x += Math.random() * 0.5 - 3;
-            this.y += Math.random() * 0.5 + 1; 
+            this.y += Math.random() * 1 + 0.25; 
             
             if (this.y >= 650) {
-                 this.y = 500;
-                 this.x = 700; }
+                 this.y = 480 + Math.random() * 100;
+                 this.x = 650 + Math.random() * 100; }
         }
 
         draw(): void {
@@ -42,14 +41,8 @@ namespace A5 {
         
        
         }
-        
-        setPosition(): void {
-            this.positionX = 500 + Math.random() * 100;
-            this.positionY = 500 + Math.random() * 200;
-            }
 
-        setRandomStyle(): void {
-            this.color = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
-        }
+
+
     }
 }
