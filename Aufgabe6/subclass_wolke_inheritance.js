@@ -10,8 +10,6 @@ var A6;
         function subclassWolke(_x, _y) {
             _super.call(this, _x, _y);
             this.color = "white";
-            this.move();
-            this.draw();
         }
         subclassWolke.prototype.move = function () {
             this.x += Math.random() * 1 + 0.5;

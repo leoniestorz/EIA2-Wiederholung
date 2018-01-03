@@ -9,9 +9,7 @@ var A6;
         __extends(subclassSnow, _super);
         function subclassSnow(_x, _y) {
             _super.call(this, _x, _y);
-            this.color = "red";
-            this.move();
-            this.draw();
+            this.color = "white";
         }
         subclassSnow.prototype.move = function () {
             this.x += Math.random() * 0.5;
@@ -29,7 +27,7 @@ var A6;
         subclassSnow.prototype.draw = function () {
             A6.crc2.beginPath();
             A6.crc2.strokeStyle = "lightgrey";
-            A6.crc2.fillStyle = "white";
+            A6.crc2.fillStyle = this.color;
             A6.crc2.arc(this.x - 8, this.y - 3, 4, 0, 2 * Math.PI);
             A6.crc2.stroke();
             A6.crc2.fill();

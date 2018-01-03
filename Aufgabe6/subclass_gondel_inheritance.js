@@ -10,8 +10,6 @@ var A6;
         function subclassGondel(_x, _y) {
             _super.call(this, _x, _y);
             this.color = "black";
-            this.move();
-            this.draw();
             this.drawLift();
         }
         subclassGondel.prototype.move = function () {
@@ -25,7 +23,7 @@ var A6;
         subclassGondel.prototype.draw = function () {
             A6.crc2.beginPath();
             A6.crc2.strokeStyle = "black";
-            A6.crc2.fillStyle = "black";
+            A6.crc2.fillStyle = this.color;
             A6.crc2.fillRect(this.x, this.y, 25, 25);
             A6.crc2.stroke();
             A6.crc2.fill();

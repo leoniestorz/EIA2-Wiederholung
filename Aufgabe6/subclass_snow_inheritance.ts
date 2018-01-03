@@ -10,9 +10,8 @@ namespace A6 {
         constructor(_x:number, _y:number) {
            
            super(_x,_y); 
-           this.color = "red";
-           this.move();
-           this.draw();
+           this.color = "white";
+           
           
         }
 
@@ -35,7 +34,7 @@ namespace A6 {
              
         crc2.beginPath();
         crc2.strokeStyle = "lightgrey";
-        crc2.fillStyle = "white";
+        crc2.fillStyle = this.color;
         crc2.arc(this.x - 8 ,this.y - 3, 4, 0, 2 * Math.PI);
         crc2.stroke();
         crc2.fill();

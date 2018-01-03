@@ -32,23 +32,19 @@ var A6;
         A6.crc2.stroke();
         A6.crc2.fillStyle = "white";
         A6.crc2.fill();
-        //Fest platzierter Baum 
-        //        let tree:classTree = new classTree (300,500, "green")
-        //        tree.draw();
         // Schleife, die 10 Baeume an zuf�lliger Position mit zuf�lliger Farbe platziert
-        //    for (let i: number = 0; i < 10; i++) {
-        //         let t:classTree = new classTree(10 + Math.random() * 700, 400 + Math.random() * 100, "hsl(" + Math.random() * 300 +", 50%, 50%)");
-        //         allTrees[i] = t;
-        //         allTrees[i].draw();
-        //         
-        //    }
+        for (var i = 0; i < 10; i++) {
+            var x = 10 + Math.random() * 700;
+            var y = 400 + Math.random() * 100;
+            drawTree(x, y, "hsl(" + Math.random() * 300 + ", 50%, 50%)");
+        }
         //Schleife Schneeflocken
         for (var i = 0; i < 100; i++) {
             var sn = new A6.subclassSnow(Math.random() * canvas.width, Math.random() * canvas.height);
             snow.push(sn);
         }
         //Schleife Wolken
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < 2; i++) {
             var w = new A6.subclassWolke(Math.random() * 800, Math.random() * 350);
             wolken.push(w);
         }
@@ -90,6 +86,16 @@ var A6;
             s.update();
         }
         window.setTimeout(animate, 20);
+    }
+    function drawTree(_x, _y, _color) {
+        A6.crc2.beginPath();
+        A6.crc2.moveTo(_x, _y);
+        A6.crc2.lineTo(_x + 20, _y + 30);
+        A6.crc2.lineTo(_x - 20, _y + 30);
+        A6.crc2.closePath();
+        A6.crc2.stroke();
+        A6.crc2.fillStyle = _color;
+        A6.crc2.fill();
     }
 })(A6 || (A6 = {}));
 //# sourceMappingURL=main_inheritance.js.map

@@ -50,21 +50,13 @@ namespace A6 {
     crc2.fill();
 
       
-//Fest platzierter Baum 
-         
-//        let tree:classTree = new classTree (300,500, "green")
-//        tree.draw();
-
-        
 // Schleife, die 10 Baeume an zufälliger Position mit zufälliger Farbe platziert
-        
-//    for (let i: number = 0; i < 10; i++) {
-//         let t:classTree = new classTree(10 + Math.random() * 700, 400 + Math.random() * 100, "hsl(" + Math.random() * 300 +", 50%, 50%)");
-//         allTrees[i] = t;
-//         allTrees[i].draw();
-//         
-//    }
- 
+         
+  for (let i: number = 0; i < 10; i++) {
+            let x: number = 10 + Math.random() * 700;
+            let y: number = 400 + Math.random() * 100;
+            drawTree(x, y, "hsl(" + Math.random() * 300 +", 50%, 50%)"); }
+
         
 //Schleife Schneeflocken
                
@@ -75,8 +67,8 @@ namespace A6 {
 
 //Schleife Wolken
                
-    for (let i:number = 0; i < 3; i++) {
-            let w:subclassWolke = new subclassWolke(Math.random() * 800, Math.random() * 350);
+    for (let i:number = 0; i < 2; i++) {
+            let w:subclassWolke = new subclassWolke (Math.random() * 800, Math.random() * 350);
             wolken.push(w);}   
         
         
@@ -146,5 +138,16 @@ namespace A6 {
        window.setTimeout(animate, 20);
     }
  
+        function drawTree(_x: number, _y: number, _color:string): void {
+     
+        crc2.beginPath();
+        crc2.moveTo(_x, _y);
+        crc2.lineTo(_x + 20, _y + 30);
+        crc2.lineTo(_x - 20, _y + 30);
+        crc2.closePath();
+        crc2.stroke();
+        crc2.fillStyle = _color;
+        crc2.fill();
+}
    
 }

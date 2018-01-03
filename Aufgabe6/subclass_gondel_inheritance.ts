@@ -9,8 +9,6 @@ namespace A6 {
           constructor(_x:number,_y:number) {
            super(_x,_y);
            this.color = "black";
-           this.move();
-           this.draw();
            this.drawLift(); }
 
        
@@ -31,7 +29,7 @@ namespace A6 {
          
         crc2.beginPath();
         crc2.strokeStyle = "black";
-        crc2.fillStyle = "black";
+        crc2.fillStyle = this.color;
         crc2.fillRect(this.x,this.y,25,25);
         crc2.stroke();
         crc2.fill();

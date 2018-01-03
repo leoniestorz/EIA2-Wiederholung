@@ -11,8 +11,7 @@ namespace A6 {
         
            super(_x,_y);
            this.color = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
-           this.move();
-           this.draw(); }
+            }
         
      
         move(): void {
