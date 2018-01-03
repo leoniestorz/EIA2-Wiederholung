@@ -54,7 +54,7 @@ var A6;
         }
         //Schleife Skifahrer
         for (var i = 0; i < 10; i++) {
-            var s = new A6.superclass(500 + Math.random() * 100, 500 + Math.random() * 200);
+            var s = new A6.subclassSkifahrer(500 + Math.random() * 100, 500 + Math.random() * 200);
             skifahrer.push(s);
         }
         //Schleife Gondel

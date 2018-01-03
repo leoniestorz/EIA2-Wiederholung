@@ -10,7 +10,10 @@ namespace A6 {
     constructor(_x:number,_y:number) {
         
            super(_x,_y);
-           this.color = "hsl(" + Math.random() * 360 + ", 100%, 50%)" }
+           this.color = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
+           this.move();
+           this.draw(); }
+        
      
         move(): void {
             this.x += Math.random() * 0.5 - 3;

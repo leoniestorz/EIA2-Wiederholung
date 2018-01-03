@@ -5,12 +5,16 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var A6;
 (function (A6) {
-    var classGondel = (function (_super) {
-        __extends(classGondel, _super);
-        function classGondel() {
-            _super.apply(this, arguments);
+    var subclassGondel = (function (_super) {
+        __extends(subclassGondel, _super);
+        function subclassGondel(_x, _y) {
+            _super.call(this, _x, _y);
+            this.color = "black";
+            this.move();
+            this.draw();
+            this.drawLift();
         }
-        classGondel.prototype.move = function () {
+        subclassGondel.prototype.move = function () {
             this.y -= 0.7;
             this.x -= 1.0586;
             if (this.x < -20) {
@@ -18,7 +22,7 @@ var A6;
                 this.y = 600;
             }
         };
-        classGondel.prototype.draw = function () {
+        subclassGondel.prototype.draw = function () {
             A6.crc2.beginPath();
             A6.crc2.strokeStyle = "black";
             A6.crc2.fillStyle = "black";
@@ -26,7 +30,7 @@ var A6;
             A6.crc2.stroke();
             A6.crc2.fill();
         };
-        classGondel.prototype.drawLift = function () {
+        subclassGondel.prototype.drawLift = function () {
             A6.crc2.beginPath();
             A6.crc2.strokeStyle = "black";
             A6.crc2.fillStyle = "black";
@@ -34,8 +38,8 @@ var A6;
             A6.crc2.lineTo(this.x - 200, this.y - 130);
             A6.crc2.stroke();
         };
-        return classGondel;
+        return subclassGondel;
     }(A6.superclass));
-    A6.classGondel = classGondel;
+    A6.subclassGondel = subclassGondel;
 })(A6 || (A6 = {}));
 //# sourceMappingURL=subclass_gondel_inheritance.js.map

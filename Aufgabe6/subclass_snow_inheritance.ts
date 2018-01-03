@@ -8,9 +8,11 @@ namespace A6 {
        
        
         constructor(_x:number, _y:number) {
+           
            super(_x,_y); 
            this.color = "red";
            this.move();
+           this.draw();
           
         }
 

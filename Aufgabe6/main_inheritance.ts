@@ -8,10 +8,10 @@ namespace A6 {
     window.addEventListener("load", init);
 
      
-      let snow: subclassSnow[] = [];
-      let wolken: subclassWolke[] = [];
-      let skifahrer: superclass[] = [];
-      let gondel:subclassGondel[] = [];
+     let snow: subclassSnow[] = [];
+     let wolken: subclassWolke[] = [];
+     let skifahrer: superclass[] = [];
+     let gondel:subclassGondel[] = [];
 
     
     function init(_event: Event): void {
@@ -22,7 +22,7 @@ namespace A6 {
       crc2 = canvas.getContext("2d");
       console.log(crc2);
  
-        
+      
 //Himmel
     
      var grd = crc2.createLinearGradient(0, 0, 0, 300);
@@ -65,7 +65,7 @@ namespace A6 {
 //         
 //    }
  
-       
+        
 //Schleife Schneeflocken
                
     for (let i: number = 0; i < 100; i++) {
@@ -84,7 +84,7 @@ namespace A6 {
 
     for (let i: number = 0; i < 10; i++) {
 
-            let s: superclass = new superclass(500 + Math.random() * 100, 500 + Math.random() * 200); 
+            let s: subclassSkifahrer = new subclassSkifahrer(500 + Math.random() * 100, 500 + Math.random() * 200); 
             skifahrer.push(s);}
 
       
@@ -139,7 +139,7 @@ namespace A6 {
       //SKIFAHRER  
 
        for (let i: number = 0; i < skifahrer.length; i++) {
-                 let s : superclass = skifahrer[i];
+                 let s : subclassSkifahrer = skifahrer[i];
                  s.update(); }
 
      

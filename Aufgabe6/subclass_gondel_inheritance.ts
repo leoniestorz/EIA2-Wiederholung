@@ -8,8 +8,13 @@ namespace A6 {
         
           constructor(_x:number,_y:number) {
            super(_x,_y);
-           this.color = "black"; }
+           this.color = "black";
+           this.move();
+           this.draw();
+           this.drawLift(); }
 
+       
+        
         move(): void {
             
             this.y -= 0.7;
@@ -21,6 +26,7 @@ namespace A6 {
                  this.y = 600; }
         }
 
+        
         draw(): void {
          
         crc2.beginPath();
@@ -29,7 +35,8 @@ namespace A6 {
         crc2.fillRect(this.x,this.y,25,25);
         crc2.stroke();
         crc2.fill();
-}
+        
+        }
         
         drawLift(): void {
         

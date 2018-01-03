@@ -10,9 +10,12 @@ namespace A6 {
 
       constructor(_x:number,_y:number) {
            super(_x,_y);
-           this.color = "white";}  
+           this.color = "white";
+           this.move();
+           this.draw();}  
         
-       
+   
+        
         move(): void {
             this.x += Math.random() * 1 + 0.5;
             this.y += Math.random() * 0;
@@ -24,7 +27,7 @@ namespace A6 {
 
         draw(): void {
              
-       crc2.beginPath();
+        crc2.beginPath();
         crc2.strokeStyle = "lightgrey";
         crc2.fillStyle = this.color;
         crc2.arc(this.x + 80 ,this.y - 30, 60, 0, 2 * Math.PI);

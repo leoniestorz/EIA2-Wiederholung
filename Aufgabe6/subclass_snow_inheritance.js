@@ -11,6 +11,7 @@ var A6;
             _super.call(this, _x, _y);
             this.color = "red";
             this.move();
+            this.draw();
         }
         subclassSnow.prototype.move = function () {
             this.x += Math.random() * 0.5;

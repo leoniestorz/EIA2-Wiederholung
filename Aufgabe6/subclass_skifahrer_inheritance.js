@@ -10,6 +10,8 @@ var A6;
         function subclassSkifahrer(_x, _y) {
             _super.call(this, _x, _y);
             this.color = "hsl(" + Math.random() * 360 + ", 100%, 50%)";
+            this.move();
+            this.draw();
         }
         subclassSkifahrer.prototype.move = function () {
             this.x += Math.random() * 0.5 - 3;
