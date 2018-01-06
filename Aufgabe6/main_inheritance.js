@@ -36,7 +36,8 @@ var A6;
         for (var i = 0; i < 10; i++) {
             var x = 10 + Math.random() * 700;
             var y = 400 + Math.random() * 100;
-            drawTree(x, y, "hsl(" + Math.random() * 300 + ", 50%, 50%)");
+            var c = "hsl(" + Math.random() * 300 + ", 50%, 50%)";
+            drawTree(x, y, c);
         }
         //Schleife Schneeflocken
         for (var i = 0; i < 100; i++) {

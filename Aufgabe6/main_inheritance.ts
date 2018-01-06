@@ -55,7 +55,9 @@ namespace A6 {
   for (let i: number = 0; i < 10; i++) {
             let x: number = 10 + Math.random() * 700;
             let y: number = 400 + Math.random() * 100;
-            drawTree(x, y, "hsl(" + Math.random() * 300 +", 50%, 50%)"); }
+            let c: string = "hsl(" + Math.random() * 300 +", 50%, 50%)";
+            
+            drawTree(x, y, c); }
 
         
 //Schleife Schneeflocken
