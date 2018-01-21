@@ -1,7 +1,7 @@
 namespace Klausuraufgabe {
    
     
-    class Fly {
+    export class Fly {
     x:number;
     y:number;
 

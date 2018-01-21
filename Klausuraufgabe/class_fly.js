@@ -34,5 +34,6 @@ var Klausuraufgabe;
         ;
         return Fly;
     }());
+    Klausuraufgabe.Fly = Fly;
 })(Klausuraufgabe || (Klausuraufgabe = {}));
 //# sourceMappingURL=class_fly.js.map
