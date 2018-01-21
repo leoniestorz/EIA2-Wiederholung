@@ -25,4 +25,4 @@ var RandomBoxes;
         document.body.appendChild(div);
     }
 })(RandomBoxes || (RandomBoxes = {}));
-//# sourceMappingURL=randomBoxes.js.map
+//# sourceMappingURL=dynHTML_randomBoxes.js.map
