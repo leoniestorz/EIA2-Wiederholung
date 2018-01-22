@@ -1,10 +1,17 @@
 var Klausuraufgabe;
 (function (Klausuraufgabe) {
-    var Fly = (function () {
-        function Fly(_x, _y) {
+    var classFly = (function () {
+        function classFly(_x, _y) {
+            this.x = _x;
+            this.y = _y;
         }
         ;
-        Fly.prototype.update = function () {
+        classFly.prototype.update = function () {
+            this.draw();
+            this.move();
+        };
+        ;
+        classFly.prototype.move = function () {
             this.x = 650 + Math.random() * 100;
             this.y = 480 + Math.random() * 100;
             if (this.x > 400) {
@@ -19,21 +26,19 @@ var Klausuraufgabe;
             if (this.y < 0) {
                 this.y = 400;
             }
-            this.draw();
         };
-        ;
-        Fly.prototype.draw = function () {
+        classFly.prototype.draw = function () {
             Klausuraufgabe.crc2.beginPath();
             Klausuraufgabe.crc2.strokeStyle = "black";
             Klausuraufgabe.crc2.fillStyle = "green";
-            Klausuraufgabe.crc2.arc(this.x + 80, this.y - 30, 6, 0, 2 * Math.PI);
+            Klausuraufgabe.crc2.arc(this.x + 80, this.y - 30, 26, 0, 2 * Math.PI);
             Klausuraufgabe.crc2.stroke();
             Klausuraufgabe.crc2.fill();
             Klausuraufgabe.crc2.closePath();
         };
         ;
-        return Fly;
+        return classFly;
     }());
-    Klausuraufgabe.Fly = Fly;
+    Klausuraufgabe.classFly = classFly;
 })(Klausuraufgabe || (Klausuraufgabe = {}));
 //# sourceMappingURL=class_fly.js.map
