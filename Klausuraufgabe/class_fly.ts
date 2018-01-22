@@ -24,13 +24,13 @@ namespace Klausuraufgabe {
    move () : void {
        
    
-        this.x = 650 + Math.random() * 100;
-        this.y = 480 + Math.random() * 100;
+        this.x += Math.random() * 10 - 7;
+        this.y += Math.random() * 5 - 2;
         
-        if (this.x > 400) 
+        if (this.x > 800) 
            { this.x = 0} 
         if (this.x < 0) 
-           { this.x = 400}  
+           { this.x = 800}  
             
         if (this.y > 400) 
            { this.y = 0} 
